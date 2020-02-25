@@ -118,14 +118,14 @@ main(int argc, char **argv) {
 	    exit(0);
 	case 'l':
 	    if (runmode != MODE_EXTRACT) {
-		fprintf(stderr, "%s: only one mode selection allowed (%s)", getprogname(), mode_options);
+		fprintf(stderr, "%s: only one mode selection allowed (%s)\n", getprogname(), mode_options);
 		exit(1);
 	    }
 	    runmode = MODE_LIST;
 	    break;
 	case 't':
 	    if (runmode != MODE_EXTRACT) {
-		fprintf(stderr, "%s: only one mode selection allowed (%s)", getprogname(), mode_options);
+		fprintf(stderr, "%s: only one mode selection allowed (%s)\n", getprogname(), mode_options);
 		exit(1);
 	    }
 	    runmode = MODE_TEST;
@@ -179,8 +179,8 @@ main(int argc, char **argv) {
 	for (size_t i = 0; i < zip_get_num_entries(archive, 0); i++) {
 	    for (size_t j = 0; j < npatterns; j++) {
 		const char *file_name = zip_get_name(archive, i, 0);
-		if (fnmatch(file_name, patterns[i].pattern, 0)) {
-		    patterns[i].matched = true;
+		if (fnmatch(patterns[j].pattern, file_name, 0) == 0) {
+		    patterns[j].matched = true;
 		    bitset_set(selected_files, i);
 		    break;
 		}
