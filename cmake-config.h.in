@@ -4,21 +4,12 @@
 #define PACKAGE_BUGREPORT "@PACKAGE_BUGREPORT@"
 #define VERSION "@VERSION@"
 
-#cmakedefine HAVE_LIBXML2
-
 #cmakedefine HAVE_FNMATCH
-#cmakedefine HAVE_FSEEKO
 #cmakedefine HAVE_GETOPT_LONG
 #cmakedefine HAVE_GETPROGNAME
-#cmakedefine HAVE_STRLCPY
 
-#cmakedefine HAVE_DIRENT_H
-#cmakedefine HAVE_INTTYPES_H
-#cmakedefine HAVE_NDIR_H
 #cmakedefine HAVE_STDBOOL_H
 #cmakedefine HAVE_STDINT_H
-#cmakedefine HAVE_SYS_DIR_H
-#cmakedefine HAVE_SYS_NDIR_H
 
 #cmakedefine HAVE_INT8_T
 #cmakedefine HAVE_UINT8_T
