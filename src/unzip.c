@@ -205,7 +205,7 @@ main(int argc, char **argv) {
 	ret = list_archive(archive, selected_files);
 	break;
     case MODE_TEST:
-/*	ret = test_archive(archive, selected_files); */
+	ret = test_archive(archive, selected_files);
 	exit(1);
 	break;
     }

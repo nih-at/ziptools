@@ -13,6 +13,7 @@ SET(COMMON_SOURCES
 
 SET(UNZIP_SOURCES
   list.c
+  test.c
   unzip.c
 )
 

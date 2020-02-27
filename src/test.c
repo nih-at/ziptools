@@ -1,5 +1,5 @@
 /*
-  unzip.h -- header for functions used by unzip
+  test.c -- test files in archive
   Copyright (C) 2020 Dieter Baron and Thomas Klausner
 
   This file is part of ziptools.
@@ -31,8 +31,53 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <zip.h>
-#include "bitset.h"
+#include "unzip.h"
 
-int list_archive(zip_t *archive, bitset_t *selected_files);
-int test_archive(zip_t *archive, bitset_t *selected_files);
+static int test_file(zip_t *archive, size_t index);
+
+int
+test_archive(zip_t *archive, bitset_t *selected_files) {
+    int ret = 0;
+
+    for (size_t i = 0; i < zip_get_num_entries(archive, 0); i++) {
+	zip_stat_t zs;
+	const char *name;
+
+	if (!bitset_is_set(selected_files, i)) {
+	    continue;
+	}
+
+	ret |= test_file(archive, i);
+    }
+
+    return ret;
+};
+
+static int
+test_file(zip_t *archive, size_t index) {
+    zip_file_t *file;
+    char buf[8192];
+    int n;
+    int err;
+
+    printf("Testing %s\t\t", zip_get_name(archive, index, 0));
+    if ((file = zip_fopen_index(archive, index, 0)) == NULL) {
+	printf("open error: %s\n", zip_strerror(archive));
+	return 1;
+    }
+    while ((n = zip_fread(file, buf, sizeof(buf))) > 0) {
+	/* do nothing */
+    }
+    if (n < 0) {
+	printf("read error: %s\n", zip_file_strerror(file));
+	zip_fclose(file);
+	return 1;
+    }
+
+    if ((err = zip_fclose(file)) != 0) {
+	printf("close error: %d\n", err);
+	return 1;
+    }
+    printf("OK\n");
+    return 0;
+}
