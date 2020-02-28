@@ -52,6 +52,9 @@ char help_head[] = PACKAGE " by Dieter Baron and Thomas Klausner\n\n";
 char help[] = "\n"
     "  -h, --help              display this help message\n"
     "  -V, --version           display version number\n"
+    "\n"
+    "  -l, --list              list archive contents\n"
+    "  -t, --test              test archive contents\n"
     "\nReport bugs to " PACKAGE_BUGREPORT ".\n";
 
 char version_string[] = PACKAGE " " VERSION "\n"
@@ -72,23 +75,6 @@ struct option options[] = {
 
     {NULL, 0, 0, 0},
 };
-
-/*
-Archive:  /archive/roms/redump/Fujitsu - FM-Towns/roms/Dragon Shock (Japan).zip
- Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
---------  ------  ------- ---- ---------- ----- --------  ----
-     894  Defl:N      156  83% 09-08-2019 05:45 d370a7a1  Dragon Shock (Japan).cue
- 3015264  Defl:N  1245407  59% 09-02-2019 01:55 31baaa36  Dragon Shock (Japan) (Track 1).bin
- 3128160  Defl:N  2026481  35% 09-02-2019 01:55 e0a7976f  Dragon Shock (Japan) (Track 2).bin
-39085536  Defl:N 36358995   7% 09-02-2019 01:55 d6d669ef  Dragon Shock (Japan) (Track 3).bin
-34927200  Defl:N 31940570   9% 09-02-2019 01:55 87a8024d  Dragon Shock (Japan) (Track 4).bin
-51896880  Defl:N 47974762   8% 09-02-2019 01:55 05a4dc45  Dragon Shock (Japan) (Track 5).bin
-39659424  Defl:N 36343104   8% 09-02-2019 01:55 dd7acae1  Dragon Shock (Japan) (Track 6).bin
-59418576  Defl:N 51163543  14% 09-02-2019 01:55 e8e85b9f  Dragon Shock (Japan) (Track 7).bin
- 3880800  Defl:N     3777 100% 12-15-2016 18:44 56903d96  Dragon Shock (Japan) (Track 8).bin
---------          -------  ---                            -------
-235012734         207056795  12%                            9 files
-*/
 
 typedef struct pattern {
     const char *pattern;
