@@ -51,7 +51,7 @@ bitset_new(uint64_t size) {
     }
 
     /* TODO: check for overflow */
-    if ((bitset->bits = (uint64_t *)calloc(sizeof(uint64_t), (size+63)/64)) == NULL) {
+    if ((bitset->bits = (uint64_t *)calloc(sizeof(uint64_t), (size + 63) / 64)) == NULL) {
 	free(bitset);
 	return NULL;
     }
@@ -63,12 +63,12 @@ bitset_new(uint64_t size) {
 
 void
 bitset_set_all(bitset_t *bitset) {
-    memset(bitset->bits, 0xff, (bitset->size+7)/8);
+    memset(bitset->bits, 0xff, (bitset->size + 7) / 8);
 }
 
 void
 bitset_clear_all(bitset_t *bitset) {
-    memset(bitset->bits, 0, (bitset->size+7)/8);
+    memset(bitset->bits, 0, (bitset->size + 7) / 8);
 }
 
 
@@ -78,7 +78,7 @@ bitset_is_set(bitset_t *bitset, uint64_t index) {
 	return false;
     }
 
-    return (bitset->bits[index/64] & (1ULL << (index % 64)));
+    return (bitset->bits[index / 64] & (1ULL << (index % 64)));
 }
 
 void
@@ -87,7 +87,7 @@ bitset_set(bitset_t *bitset, uint64_t index) {
 	return;
     }
 
-    bitset->bits[index/64] |= (1ULL << (index % 64));
+    bitset->bits[index / 64] |= (1ULL << (index % 64));
 }
 
 void
@@ -96,7 +96,7 @@ bitset_clear(bitset_t *bitset, uint64_t index) {
 	return;
     }
 
-    bitset->bits[index/64] &= ~(1ULL << (index % 64));
+    bitset->bits[index / 64] &= ~(1ULL << (index % 64));
 }
 
 void

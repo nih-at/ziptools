@@ -50,16 +50,16 @@ char *usage = "Usage: %s [-hvV] [-l|-t] zip-archive [file...]\n";
 char help_head[] = PACKAGE " by Dieter Baron and Thomas Klausner\n\n";
 
 char help[] = "\n"
-    "  -l, --list              list archive contents\n"
-    "  -t, --test              test archive contents\n"
-    "\n"
-    "  -h, --help              display this help message\n"
-    "  -v, --verbose           print more information\n"
-    "  -V, --version           display version number\n"
-    "\nReport bugs to " PACKAGE_BUGREPORT ".\n";
+	      "  -l, --list              list archive contents\n"
+	      "  -t, --test              test archive contents\n"
+	      "\n"
+	      "  -h, --help              display this help message\n"
+	      "  -v, --verbose           print more information\n"
+	      "  -V, --version           display version number\n"
+	      "\nReport bugs to " PACKAGE_BUGREPORT ".\n";
 
 char version_string[] = PACKAGE " " VERSION "\n"
-    "Copyright (C) 2020 Dieter Baron and Thomas Klausner\n" PACKAGE " comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.\n";
+				"Copyright (C) 2020 Dieter Baron and Thomas Klausner\n" PACKAGE " comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.\n";
 
 #define GLOB_CHARS "*?["
 
@@ -67,6 +67,7 @@ char version_string[] = PACKAGE " " VERSION "\n"
 
 enum { OPT_OPTIONS = 256 };
 
+/* clang-format off */
 struct option options[] = {
     {"list", 0, 0, 'l'},
     {"test", 0, 0, 't'},
@@ -76,6 +77,7 @@ struct option options[] = {
     {"version", 0, 0, 'V'},
 
     {NULL, 0, 0, 0},
+    /* clang-format on */
 };
 
 typedef struct pattern {
@@ -150,7 +152,7 @@ main(int argc, char **argv) {
 	pattern_t *patterns;
 	size_t npatterns = 0;
 
-	if ((patterns = malloc(sizeof(*patterns)*(argc-optind))) == NULL) {
+	if ((patterns = malloc(sizeof(*patterns) * (argc - optind))) == NULL) {
 	    /* die */
 	}
 	for (size_t i = optind; i < argc; i++) {
@@ -191,7 +193,7 @@ main(int argc, char **argv) {
 
     switch (runmode) {
     case MODE_EXTRACT:
-/*	ret = extract_archive(archive, selected_files); */
+	/*	ret = extract_archive(archive, selected_files); */
 	exit(1);
 	break;
     case MODE_LIST:

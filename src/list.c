@@ -67,7 +67,7 @@ list_archive(zip_t *archive, bitset_t *selected_files) {
 	}
 	strftime(timebuf, sizeof(timebuf), "%F %H:%M:%S", tm);
 	if (verbose) {
-	    printf("%" PRIu64 "\t%" PRIu64 "\t\t%3.2f%%\t%08x\t%s\t%s\n", zs.size, zs.comp_size, (float)100*zs.comp_size/zs.size, zs.crc, timebuf, zs.name);
+	    printf("%" PRIu64 "\t%" PRIu64 "\t\t%3.2f%%\t%08x\t%s\t%s\n", zs.size, zs.comp_size, (float)100 * zs.comp_size / zs.size, zs.crc, timebuf, zs.name);
 	}
 	else {
 	    printf("%" PRIu64 "\t%s\t%s\n", zs.size, timebuf, zs.name);

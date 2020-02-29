@@ -31,8 +31,8 @@
   IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <zip.h>
 #include "bitset.h"
+#include <zip.h>
 
 extern int verbose;
 
