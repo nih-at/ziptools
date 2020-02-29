@@ -37,11 +37,18 @@ int
 list_archive(zip_t *archive, bitset_t *selected_files) {
     int ret = 0;
 
-    printf("Size\tName\n");
+    if (verbose) {
+	printf("Size\tCompressed\tRatio\tCRC\t\tTimestamp\t\tName\n");
+    }
+    else {
+	printf("Size\tTimestamp\t\tName\n");
+    }
 
     for (size_t i = 0; i < zip_get_num_entries(archive, 0); i++) {
 	zip_stat_t zs;
 	const char *name;
+	struct tm *tm;
+	char timebuf[80];
 
 	if (!bitset_is_set(selected_files, i)) {
 	    continue;
@@ -50,9 +57,21 @@ list_archive(zip_t *archive, bitset_t *selected_files) {
 	if (zip_stat_index(archive, i, 0, &zs) < 0) {
 	    /* TODO: error */
 	    ret = 1;
+	    continue;
 	}
 
-	printf("%" PRIu64 "\t%s\n", zs.size, zs.name);
+	if ((tm = gmtime(&zs.mtime)) == NULL) {
+	    /* TODO: error */
+	    ret = 1;
+	    continue;
+	}
+	strftime(timebuf, sizeof(timebuf), "%F %H:%M:%S", tm);
+	if (verbose) {
+	    printf("%" PRIu64 "\t%" PRIu64 "\t\t%3.2f%%\t%08x\t%s\t%s\n", zs.size, zs.comp_size, (float)100*zs.comp_size/zs.size, zs.crc, timebuf, zs.name);
+	}
+	else {
+	    printf("%" PRIu64 "\t%s\t%s\n", zs.size, timebuf, zs.name);
+	}
     }
 
     return ret;

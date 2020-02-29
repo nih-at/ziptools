@@ -34,5 +34,7 @@
 #include <zip.h>
 #include "bitset.h"
 
+extern int verbose;
+
 int list_archive(zip_t *archive, bitset_t *selected_files);
 int test_archive(zip_t *archive, bitset_t *selected_files);

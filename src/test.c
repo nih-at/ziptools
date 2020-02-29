@@ -60,24 +60,27 @@ test_file(zip_t *archive, size_t index) {
     int n;
     int err;
 
-    printf("Testing %s\t\t", zip_get_name(archive, index, 0));
     if ((file = zip_fopen_index(archive, index, 0)) == NULL) {
-	printf("open error: %s\n", zip_strerror(archive));
+	fprintf(stderr, "%s: open failed: %s\n", zip_get_name(archive, index, 0), zip_strerror(archive));
 	return 1;
     }
     while ((n = zip_fread(file, buf, sizeof(buf))) > 0) {
 	/* do nothing */
     }
     if (n < 0) {
-	printf("read error: %s\n", zip_file_strerror(file));
+	fprintf(stderr, "%s: read failed: %s\n", zip_get_name(archive, index, 0), zip_file_strerror(file));
 	zip_fclose(file);
 	return 1;
     }
 
     if ((err = zip_fclose(file)) != 0) {
-	printf("close error: %d\n", err);
+	fprintf(stderr, "%s: close failed: %d\n", zip_get_name(archive, index, 0), err);
 	return 1;
     }
-    printf("OK\n");
+
+    if (verbose) {
+	printf("%s: OK\n", zip_get_name(archive, index, 0));
+    }
+
     return 0;
 }

@@ -45,16 +45,17 @@
 #include "bitset.h"
 #include "unzip.h"
 
-char *usage = "Usage: %s [-hV] [-l|-t] zip-archive [file...]\n";
+char *usage = "Usage: %s [-hvV] [-l|-t] zip-archive [file...]\n";
 
 char help_head[] = PACKAGE " by Dieter Baron and Thomas Klausner\n\n";
 
 char help[] = "\n"
-    "  -h, --help              display this help message\n"
-    "  -V, --version           display version number\n"
-    "\n"
     "  -l, --list              list archive contents\n"
     "  -t, --test              test archive contents\n"
+    "\n"
+    "  -h, --help              display this help message\n"
+    "  -v, --verbose           print more information\n"
+    "  -V, --version           display version number\n"
     "\nReport bugs to " PACKAGE_BUGREPORT ".\n";
 
 char version_string[] = PACKAGE " " VERSION "\n"
@@ -62,16 +63,17 @@ char version_string[] = PACKAGE " " VERSION "\n"
 
 #define GLOB_CHARS "*?["
 
-#define OPTIONS "hltV"
+#define OPTIONS "hltvV"
 
 enum { OPT_OPTIONS = 256 };
 
 struct option options[] = {
-    {"help", 0, 0, 'h'},
-    {"version", 0, 0, 'V'},
-
     {"list", 0, 0, 'l'},
     {"test", 0, 0, 't'},
+
+    {"help", 0, 0, 'h'},
+    {"verbose", 0, 0, 'v'},
+    {"version", 0, 0, 'V'},
 
     {NULL, 0, 0, 0},
 };
@@ -84,6 +86,8 @@ typedef struct pattern {
 typedef enum { MODE_EXTRACT, MODE_LIST, MODE_TEST } runmode_t;
 
 const char *mode_options = "none, -l, -t";
+
+int verbose = 0;
 
 int
 main(int argc, char **argv) {
@@ -115,6 +119,9 @@ main(int argc, char **argv) {
 		exit(1);
 	    }
 	    runmode = MODE_TEST;
+	    break;
+	case 'v':
+	    verbose = 1;
 	    break;
 	case 'V':
 	    fputs(version_string, stdout);
