@@ -46,7 +46,6 @@ list_archive(zip_t *archive, bitset_t *selected_files) {
 
     for (size_t i = 0; i < zip_get_num_entries(archive, 0); i++) {
 	zip_stat_t zs;
-	const char *name;
 	struct tm *tm;
 	char timebuf[80];
 

@@ -40,9 +40,6 @@ test_archive(zip_t *archive, bitset_t *selected_files) {
     int ret = 0;
 
     for (size_t i = 0; i < zip_get_num_entries(archive, 0); i++) {
-	zip_stat_t zs;
-	const char *name;
-
 	if (!bitset_is_set(selected_files, i)) {
 	    continue;
 	}
@@ -57,7 +54,7 @@ static int
 test_file(zip_t *archive, size_t index) {
     zip_file_t *file;
     char buf[8192];
-    int n;
+    int64_t n;
     int err;
 
     if ((file = zip_fopen_index(archive, index, 0)) == NULL) {
