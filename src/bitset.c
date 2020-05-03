@@ -39,6 +39,7 @@
 typedef struct bitset {
     uint64_t *bits;
     uint64_t size;
+    uint64_t bits_size;
 } bitset_t;
 
 
@@ -50,8 +51,11 @@ bitset_new(uint64_t size) {
 	return NULL;
     }
 
-    /* TODO: check for overflow */
-    if ((bitset->bits = (uint64_t *)calloc(sizeof(uint64_t), (size + 63) / 64)) == NULL) {
+    bitset->bits_size = size / 64;
+    if (size % 64 != 0) {
+        bitset->bits_size += 1;
+    }
+    if ((bitset->bits = (uint64_t *)calloc(sizeof(uint64_t), bitset->bits_size)) == NULL) {
 	free(bitset);
 	return NULL;
     }
@@ -63,12 +67,12 @@ bitset_new(uint64_t size) {
 
 void
 bitset_set_all(bitset_t *bitset) {
-    memset(bitset->bits, 0xff, (bitset->size + 7) / 8);
+    memset(bitset->bits, 0xff, bitset->bits_size * 8);
 }
 
 void
 bitset_clear_all(bitset_t *bitset) {
-    memset(bitset->bits, 0, (bitset->size + 7) / 8);
+    memset(bitset->bits, 0, bitset->bits_size * 8);
 }
 
 
